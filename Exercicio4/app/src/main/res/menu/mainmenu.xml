@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuSalvar"
+        android:title="Salvar" />
+    <item
+        android:id="@+id/menuNovo"
+        android:title="Novo" />
+    <item
+        android:id="@+id/menuListar"
+        android:title="Listar" />
+    <item
+        android:id="@+id/menuExcluir"
+        android:title="Excluir" />
+
+    <item
+        android:id="@+id/menuAdicionarDiretor"
+        android:title="Adicionar Diretor" />
+
+</menu>

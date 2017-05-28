@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Trabalho</string>
+    <string name="mainActivityTextDiretor">Diretor</string>
+    <string-array name="diretores">
+        <item>Quentin Tarantino</item>
+        <item>Mel Gibson</item>
+        <item>Lars Von Trier</item>
+    </string-array>
+</resources>
