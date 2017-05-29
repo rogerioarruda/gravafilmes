@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         fabProximo = (FloatingActionButton) findViewById(R.id.fabProximo);
         fabAnterior = (FloatingActionButton) findViewById(R.id.fabAnterior);
         fabBuscarImagem.setOnClickListener(clique);
+        fabProximo.setOnClickListener(clique);
+        fabAnterior.setOnClickListener(clique);
         imgFilme = (ImageView) findViewById(R.id.imgFilme);
         spinnerDiretores = (Spinner) findViewById(R.id.mainActivitySpinnerDiretores);
         filmes = new ArrayList<>();
@@ -60,22 +62,24 @@ public class MainActivity extends AppCompatActivity {
         edtFilme = (EditText) findViewById(R.id.edtFilme);
         ratBarra = (RatingBar) findViewById(R.id.ratBarra);
 
-        /*
+
 
         Bitmap donie = BitmapFactory.decodeResource(getResources(), R.drawable.donie);
         Bitmap kill = BitmapFactory.decodeResource(getResources(), R.drawable.kill);
         Bitmap guard = BitmapFactory.decodeResource(getResources(), R.drawable.guard);
-
+        guard = Bitmap.createScaledBitmap(guard, 500, 100, false);
+        kill = Bitmap.createScaledBitmap(kill, 500, 100, false);
+        donie = Bitmap.createScaledBitmap(donie, 500, 100, false);
 
 
         filmes.add(new Filme("Guardiões da Galaxia", "James Gunn",returnByte(guard)));
         filmes.add(new Filme("Donnie Darko","Richard Kelly",returnByte(donie)));
-        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));*/
+        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));
 
         if ((diretores != null) && (diretores.size() > 0)) {
             populaDiretor();
         }
-        posicao = 0;
+        posicao = 2;
 
 
     }
@@ -104,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 posicao = filmes.size() - 1;
             }
         }
-        montaCamposFilme();
+        montaCamposTela();
     }
 
-    private void montaCamposFilme(){
+    private void montaCamposTela(){
         filmes.get(posicao);
         if (filmes.get(posicao) != null){
             if (filmes.get(posicao).getAno() != null){
@@ -121,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
             }
             if (filmes.get(posicao).getFilme() != null){
                 edtFilme.setText(filmes.get(posicao).getFilme());
+            }
+            if (filmes.get(posicao).getBytes() != null){
+                byte[] byteArray = filmes.get(posicao).getBytes();
+                imgFilme.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+            }
+            if (filmes.get(posicao).getRating() != null){
+                ratBarra.setRating(filmes.get(posicao).getRating());
+            }else{
+                ratBarra.setRating(0);
             }
         }
 
@@ -182,17 +195,11 @@ public class MainActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.menuSalvar){
             if(validaCampos()){
                 if (posicao < filmes.size()){
-                    Filme filme = new Filme();
+                    Filme filme = filmes.get(posicao);
                     filme = montaCamposFilme(filme);
                     filmes.set(posicao,filme);
-
-                }else {
-                    Filme filme = new Filme();
-                    filme = montaCamposFilme(filme);
-                    filmes.add(filme);
-                    posicao = filmes.size() - 1;
                 }
-                montaCamposFilme();
+                montaCamposTela();
             }
 
         }else if (item.getItemId() == R.id.menuExcluir){
@@ -200,13 +207,17 @@ public class MainActivity extends AppCompatActivity {
             if (posicao < 0){
                 posicao--;
             }
-            montaCamposFilme();
+            montaCamposTela();
         }else if (item.getItemId() == R.id.menuNovo){
             edtFilme.setText("");
             edtDataLancamento.setText("");
             edtCodigo.setText("");
             edtAno.setText("");
+            ratBarra.setRating(0);
             posicao = filmes.size();
+            Filme filme = new Filme();
+            filmes.add(filme);
+            posicao = filmes.size() - 1;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -216,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
         filme.setCodigo(edtCodigo.getText().toString());
         filme.setDataLancamento(edtDataLancamento.getText().toString());
         filme.setFilme(edtFilme.getText().toString());
+        filme.setRating(ratBarra.getRating());
         return filme;
     }
 
@@ -259,6 +271,8 @@ public class MainActivity extends AppCompatActivity {
                         bitmap = BitmapFactory.decodeStream(stream);
                         stream.close();
                         imgFilme.setImageBitmap(bitmap);
+                        if (filmes.get(posicao) != null)
+                            filmes.get(posicao).setBytes(returnByte(bitmap));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

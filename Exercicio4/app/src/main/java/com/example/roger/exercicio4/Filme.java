@@ -1,5 +1,7 @@
 package com.example.roger.exercicio4;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Filme implements Serializable {
@@ -10,8 +12,9 @@ public class Filme implements Serializable {
     private String ano;
     private String diretor;
     private String dataLancamento;
-    private Double rating;
-    //private byte[] foto;
+    private Float rating;
+    private Bitmap bitmap;
+    private byte[] bytes;
 
     public Filme(){
 
@@ -21,10 +24,10 @@ public class Filme implements Serializable {
         this.filme = titulo;
     }
 
-    public Filme(String titulo, String diretor, byte[] foto) {
+    public Filme(String titulo, String diretor, byte[] bitmap) {
         this.filme = titulo;
         this.diretor = diretor;
-        //this.foto = foto;
+        this.bytes = bitmap;
     }
 
     public Filme(String titulo, String codigo, String ano, String diretor, String dataLancamento, byte[] foto) {
@@ -75,11 +78,19 @@ public class Filme implements Serializable {
         this.dataLancamento = dataLancamento;
     }
 
-    public Double getRating() {
+    public Float getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
 }
