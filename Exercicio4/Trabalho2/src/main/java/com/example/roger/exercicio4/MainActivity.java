@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         ratBarra = (RatingBar) findViewById(R.id.ratBarra);
 
 
-
+/*
         Bitmap donie = BitmapFactory.decodeResource(getResources(), R.drawable.donie);
         Bitmap kill = BitmapFactory.decodeResource(getResources(), R.drawable.kill);
         Bitmap guard = BitmapFactory.decodeResource(getResources(), R.drawable.guard);
@@ -74,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         filmes.add(new Filme("Guardiões da Galaxia", "James Gunn",returnByte(guard)));
         filmes.add(new Filme("Donnie Darko","Richard Kelly",returnByte(donie)));
-        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));
+        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));*/
 
         if ((diretores != null) && (diretores.size() > 0)) {
             populaDiretor();
         }
-        posicao = 2;
+        posicao = 0;
 
 
     }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private void avancaFilme(boolean avanca){
         if (avanca){
             posicao++;
-            if (posicao == filmes.size())
+            if (posicao >= filmes.size())
                 posicao = 0;
         }else{
             posicao--;
@@ -112,28 +112,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void montaCamposTela(){
-        filmes.get(posicao);
-        if (filmes.get(posicao) != null){
-            if (filmes.get(posicao).getAno() != null){
-                edtAno.setText(filmes.get(posicao).getAno());
-            }
-            if (filmes.get(posicao).getCodigo() != null){
-                edtCodigo.setText(filmes.get(posicao).getCodigo());
-            }
-            if (filmes.get(posicao).getDataLancamento() != null){
-                edtDataLancamento.setText(filmes.get(posicao).getDataLancamento());
-            }
-            if (filmes.get(posicao).getFilme() != null){
-                edtFilme.setText(filmes.get(posicao).getFilme());
-            }
-            if (filmes.get(posicao).getBytes() != null){
-                byte[] byteArray = filmes.get(posicao).getBytes();
-                imgFilme.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
-            }
-            if (filmes.get(posicao).getRating() != null){
-                ratBarra.setRating(filmes.get(posicao).getRating());
-            }else{
-                ratBarra.setRating(0);
+        if (posicao > 0) {
+            filmes.get(posicao);
+            if (filmes.get(posicao) != null) {
+                if (filmes.get(posicao).getAno() != null) {
+                    edtAno.setText(filmes.get(posicao).getAno());
+                }
+                if (filmes.get(posicao).getCodigo() != null) {
+                    edtCodigo.setText(filmes.get(posicao).getCodigo());
+                }
+                if (filmes.get(posicao).getDataLancamento() != null) {
+                    edtDataLancamento.setText(filmes.get(posicao).getDataLancamento());
+                }
+                if (filmes.get(posicao).getFilme() != null) {
+                    edtFilme.setText(filmes.get(posicao).getFilme());
+                }
+                if (filmes.get(posicao).getBytes() != null) {
+                    byte[] byteArray = filmes.get(posicao).getBytes();
+                    imgFilme.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                }
+                if (filmes.get(posicao).getRating() != null) {
+                    ratBarra.setRating(filmes.get(posicao).getRating());
+                } else {
+                    ratBarra.setRating(0);
+                }
             }
         }
 
@@ -245,6 +247,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (edtFilme.getText().toString().isEmpty()){
             mensagem += "Filme, ";
+        }
+        if (spinnerDiretores.toString().isEmpty()){
+            mensagem += "Diretor, ";
         }
         if (!mensagem.isEmpty()) {
             Toast.makeText(this, "Os seguintes campos estão vazios: " + mensagem.substring(0, mensagem.length() - 2) + "!", Toast.LENGTH_SHORT).show();

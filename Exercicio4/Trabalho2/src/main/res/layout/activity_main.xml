@@ -10,13 +10,13 @@
         android:id="@+id/imgFilme"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="-7dp"
         android:scaleType="centerCrop"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/guard" />
+        app:srcCompat="@drawable/noimg" />
 
     <EditText
         android:id="@+id/edtFilme"
@@ -45,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Codigo"
-        android:inputType="textPassword"
+        android:inputType="text"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
