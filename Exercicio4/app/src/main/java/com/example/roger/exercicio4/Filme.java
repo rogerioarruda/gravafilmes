@@ -13,6 +13,10 @@ public class Filme implements Serializable {
     private Double rating;
     //private byte[] foto;
 
+    public Filme(){
+
+    }
+
     public Filme(String titulo) {
         this.filme = titulo;
     }

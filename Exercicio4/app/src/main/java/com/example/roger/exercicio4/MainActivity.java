@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         edtFilme = (EditText) findViewById(R.id.edtFilme);
         ratBarra = (RatingBar) findViewById(R.id.ratBarra);
 
+        /*
 
         Bitmap donie = BitmapFactory.decodeResource(getResources(), R.drawable.donie);
         Bitmap kill = BitmapFactory.decodeResource(getResources(), R.drawable.kill);
@@ -68,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         filmes.add(new Filme("Guardiões da Galaxia", "James Gunn",returnByte(guard)));
         filmes.add(new Filme("Donnie Darko","Richard Kelly",returnByte(donie)));
-        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));
+        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));*/
 
-        if ((diretores != null) || (diretores.size() > 0)) {
+        if ((diretores != null) && (diretores.size() > 0)) {
             populaDiretor();
         }
         posicao = 0;
@@ -84,15 +86,28 @@ public class MainActivity extends AppCompatActivity {
             if (v == fabBuscarImagem)
              pickImage();
             else if (v == fabAnterior){
-                posicao--;
-                preencheFilme();
+                avancaFilme(false);
             }else if (v == fabProximo){
-                posicao++;
+                avancaFilme(true);
             }
         }
     };
 
-    private void preencheFilme(){
+    private void avancaFilme(boolean avanca){
+        if (avanca){
+            posicao++;
+            if (posicao == filmes.size())
+                posicao = 0;
+        }else{
+            posicao--;
+            if (posicao < 0){
+                posicao = filmes.size() - 1;
+            }
+        }
+        montaCamposFilme();
+    }
+
+    private void montaCamposFilme(){
         filmes.get(posicao);
         if (filmes.get(posicao) != null){
             if (filmes.get(posicao).getAno() != null){
@@ -164,8 +179,67 @@ public class MainActivity extends AppCompatActivity {
             buider.setNegativeButton("Cancelar",null);
             buider.show();
 
+        }else if (item.getItemId() == R.id.menuSalvar){
+            if(validaCampos()){
+                if (posicao < filmes.size()){
+                    Filme filme = new Filme();
+                    filme = montaCamposFilme(filme);
+                    filmes.set(posicao,filme);
+
+                }else {
+                    Filme filme = new Filme();
+                    filme = montaCamposFilme(filme);
+                    filmes.add(filme);
+                    posicao = filmes.size() - 1;
+                }
+                montaCamposFilme();
+            }
+
+        }else if (item.getItemId() == R.id.menuExcluir){
+            filmes.remove(posicao);
+            if (posicao < 0){
+                posicao--;
+            }
+            montaCamposFilme();
+        }else if (item.getItemId() == R.id.menuNovo){
+            edtFilme.setText("");
+            edtDataLancamento.setText("");
+            edtCodigo.setText("");
+            edtAno.setText("");
+            posicao = filmes.size();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private Filme montaCamposFilme(Filme filme) {
+        filme.setAno(edtAno.getText().toString());
+        filme.setCodigo(edtCodigo.getText().toString());
+        filme.setDataLancamento(edtDataLancamento.getText().toString());
+        filme.setFilme(edtFilme.getText().toString());
+        return filme;
+    }
+
+    private boolean validaCampos(){
+        String mensagem = "";
+
+        if (edtAno.getText().toString().isEmpty()){
+            mensagem += "Ano, ";
+        }
+        if (edtCodigo.getText().toString().isEmpty()){
+            mensagem += "Codigo, ";
+        }
+        if (edtDataLancamento.getText().toString().isEmpty()){
+            mensagem += "Data de lançamento, ";
+        }
+        if (edtFilme.getText().toString().isEmpty()){
+            mensagem += "Filme, ";
+        }
+        if (!mensagem.isEmpty()) {
+            Toast.makeText(this, "Os seguintes campos estão vazios: " + mensagem.substring(0, mensagem.length() - 2) + "!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -192,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }else if (requestCode == ACTIVITY_LISTA){
+        }else if ((requestCode == ACTIVITY_LISTA) && (resultCode == RESULT_OK)){
             filmes = (ArrayList<Filme>) data.getExtras().getSerializable("lista");
         }
     }
