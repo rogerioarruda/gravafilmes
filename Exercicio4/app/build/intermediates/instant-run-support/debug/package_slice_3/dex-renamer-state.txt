@@ -1,0 +1,4 @@
+#Mon May 29 17:22:16 BRT 2017
+base.0=C\:\\gravafilmes\\Exercicio4\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_3
+renamed.0=classes.dex
+file.0=C\:\\gravafilmes\\Exercicio4\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_3\\classes.dex

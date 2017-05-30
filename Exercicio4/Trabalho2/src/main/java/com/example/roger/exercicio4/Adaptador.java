@@ -27,7 +27,7 @@ public class Adaptador extends RecyclerView.Adapter<Item>{
     public void onBindViewHolder(Item holder, final int position) {
         Filme filme = filmes.get(position);
         holder.texto.setText(filme.getFilme());
-        holder.textoDiretor.setText(filme.getDiretor());
+        holder.textoDiretor.setText(filme.getDiretor().getNome());
         holder.imgExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

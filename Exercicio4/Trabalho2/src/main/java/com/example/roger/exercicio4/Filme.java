@@ -10,32 +10,14 @@ public class Filme implements Serializable {
     private String filme;
     private String codigo;
     private String ano;
-    private String diretor;
+    private Diretor diretor;
     private String dataLancamento;
     private Float rating;
-    private Bitmap bitmap;
     private byte[] bytes;
+
 
     public Filme(){
 
-    }
-
-    public Filme(String titulo) {
-        this.filme = titulo;
-    }
-
-    public Filme(String titulo, String diretor, byte[] bitmap) {
-        this.filme = titulo;
-        this.diretor = diretor;
-        this.bytes = bitmap;
-    }
-
-    public Filme(String titulo, String codigo, String ano, String diretor, String dataLancamento, byte[] foto) {
-        this.filme = titulo;
-        this.codigo = codigo;
-        this.ano = ano;
-        this.diretor = diretor;
-        this.dataLancamento = dataLancamento;
     }
 
     public String getFilme() {
@@ -62,11 +44,11 @@ public class Filme implements Serializable {
         this.ano = ano;
     }
 
-    public String getDiretor() {
+    public Diretor getDiretor() {
         return diretor;
     }
 
-    public void setDiretor(String diretor) {
+    public void setDiretor(Diretor diretor) {
         this.diretor = diretor;
     }
 

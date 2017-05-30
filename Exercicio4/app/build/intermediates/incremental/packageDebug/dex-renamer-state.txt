@@ -1,0 +1,7 @@
+#Mon May 29 08:46:44 BRT 2017
+base.0=C\:\\gravafilmes\\Exercicio4\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_cf21dbcd1dcc213c98b6b7b1b4fc07ad1e7acd30
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\gravafilmes\\Exercicio4\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_560ad64867290209fbb48d00a246a03b7ee6c38d\\classes.dex
+base.1=C\:\\gravafilmes\\Exercicio4\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_560ad64867290209fbb48d00a246a03b7ee6c38d
+file.0=C\:\\gravafilmes\\Exercicio4\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_cf21dbcd1dcc213c98b6b7b1b4fc07ad1e7acd30\\classes.dex

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private EditText edtFilme, edtCodigo, edtAno, edtDataLancamento;
     private RatingBar ratBarra;
-    private Integer posicao;
+    private int posicao;
     private static Integer ACTIVITY_LISTA = 123;
     private static Integer BUSCA_IMAGEM = 234;
 
@@ -54,27 +54,12 @@ public class MainActivity extends AppCompatActivity {
         fabAnterior.setOnClickListener(clique);
         imgFilme = (ImageView) findViewById(R.id.imgFilme);
         spinnerDiretores = (Spinner) findViewById(R.id.mainActivitySpinnerDiretores);
-        filmes = new ArrayList<>();
 
         edtAno = (EditText) findViewById(R.id.edtAno);
         edtCodigo = (EditText) findViewById(R.id.edtCodigo);
         edtDataLancamento = (EditText) findViewById(R.id.edtDataLancamento);
         edtFilme = (EditText) findViewById(R.id.edtFilme);
         ratBarra = (RatingBar) findViewById(R.id.ratBarra);
-
-
-/*
-        Bitmap donie = BitmapFactory.decodeResource(getResources(), R.drawable.donie);
-        Bitmap kill = BitmapFactory.decodeResource(getResources(), R.drawable.kill);
-        Bitmap guard = BitmapFactory.decodeResource(getResources(), R.drawable.guard);
-        guard = Bitmap.createScaledBitmap(guard, 500, 100, false);
-        kill = Bitmap.createScaledBitmap(kill, 500, 100, false);
-        donie = Bitmap.createScaledBitmap(donie, 500, 100, false);
-
-
-        filmes.add(new Filme("Guardiões da Galaxia", "James Gunn",returnByte(guard)));
-        filmes.add(new Filme("Donnie Darko","Richard Kelly",returnByte(donie)));
-        filmes.add(new Filme("Kill Bill", "Quentin Tarantino",returnByte(kill)));*/
 
         if ((diretores != null) && (diretores.size() > 0)) {
             populaDiretor();
@@ -87,31 +72,34 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener clique = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (v == fabBuscarImagem)
-             pickImage();
-            else if (v == fabAnterior){
-                avancaFilme(false);
-            }else if (v == fabProximo){
-                avancaFilme(true);
+            if (filmes.size() > 0) {
+
+                if (v == fabBuscarImagem)
+                    pickImage();
+                else if (v == fabAnterior) {
+                    avancaFilme(false);
+                } else if (v == fabProximo) {
+                    avancaFilme(true);
+                }
             }
         }
     };
 
-    private void avancaFilme(boolean avanca){
-        if (avanca){
+    private void avancaFilme(boolean avanca) {
+        if (avanca) {
             posicao++;
             if (posicao >= filmes.size())
                 posicao = 0;
-        }else{
+        } else {
             posicao--;
-            if (posicao < 0){
+            if (posicao < 0) {
                 posicao = filmes.size() - 1;
             }
         }
         montaCamposTela();
     }
 
-    private void montaCamposTela(){
+    private void montaCamposTela() {
         if (filmes.size() > 0) {
             filmes.get(posicao);
             if (filmes.get(posicao) != null) {
@@ -131,12 +119,17 @@ public class MainActivity extends AppCompatActivity {
                     byte[] byteArray = filmes.get(posicao).getBytes();
                     imgFilme.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
                 }
+                if (filmes.get(posicao).getDiretor() != null) {
+                    spinnerDiretores.setSelection(filmes.get(posicao).getDiretor().getId());
+                }
                 if (filmes.get(posicao).getRating() != null) {
                     ratBarra.setRating(filmes.get(posicao).getRating());
                 } else {
                     ratBarra.setRating(0);
                 }
             }
+        } else {
+            limpaCampos();
         }
 
     }
@@ -167,61 +160,70 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menuListar){
+        if (item.getItemId() == R.id.menuListar) {
             Intent intent = new Intent(MainActivity.this, ActivityListaFilmes.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("lista",filmes);
+            bundle.putSerializable("lista", filmes);
             intent.putExtras(bundle);
-            startActivityForResult(intent,ACTIVITY_LISTA);
+            startActivityForResult(intent, ACTIVITY_LISTA);
 
-        }else if (item.getItemId() == R.id.menuAdicionarDiretor){
+        } else if (item.getItemId() == R.id.menuAdicionarDiretor) {
             final AlertDialog.Builder buider = new AlertDialog.Builder(MainActivity.this);
             buider.setTitle("Novo Diretor");
             LayoutInflater inflater = MainActivity.this.getLayoutInflater();
-            final View view = inflater.inflate(R.layout.cadastrodiretor,null);
+            final View view = inflater.inflate(R.layout.cadastrodiretor, null);
             buider.setView(view);
             buider.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     EditText edtNome = (EditText) view.findViewById(R.id.cadastroDiretorEditNome);
-                    if (diretores == null){
+                    if (diretores == null) {
                         diretores = new ArrayList<Diretor>();
                     }
-                    diretores.add(new Diretor(edtNome.getText().toString()));
+                    diretores.add(new Diretor(edtNome.getText().toString(), diretores.size()));
                     populaDiretor();
                 }
             });
-            buider.setNegativeButton("Cancelar",null);
+            buider.setNegativeButton("Cancelar", null);
             buider.show();
 
-        }else if (item.getItemId() == R.id.menuSalvar){
-            if(validaCampos()){
-                if (posicao < filmes.size()){
+        } else if (item.getItemId() == R.id.menuSalvar) {
+            if (validaCampos()) {
+                if (posicao < filmes.size()) {
                     Filme filme = filmes.get(posicao);
                     filme = montaCamposFilme(filme);
-                    filmes.set(posicao,filme);
+                    filmes.set(posicao, filme);
                 }
                 montaCamposTela();
+                Toast.makeText(this, "Filme salvo com sucesso!", Toast.LENGTH_SHORT).show();
             }
 
-        }else if (item.getItemId() == R.id.menuExcluir){
+        } else if (item.getItemId() == R.id.menuExcluir) {
             filmes.remove(posicao);
-            if (posicao < 0){
+            if (posicao > 0) {
                 posicao--;
             }
             montaCamposTela();
-        }else if (item.getItemId() == R.id.menuNovo){
-            edtFilme.setText("");
-            edtDataLancamento.setText("");
-            edtCodigo.setText("");
-            edtAno.setText("");
-            ratBarra.setRating(0);
-            posicao = filmes.size();
+            Toast.makeText(this, "Filme excluído com sucesso!", Toast.LENGTH_SHORT).show();
+        } else if (item.getItemId() == R.id.menuNovo) {
+            limpaCampos();
             Filme filme = new Filme();
+            if (filmes == null)
+                filmes = new ArrayList<>();
             filmes.add(filme);
             posicao = filmes.size() - 1;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void limpaCampos() {
+        edtFilme.setText("");
+        edtDataLancamento.setText("");
+        edtCodigo.setText("");
+        edtAno.setText("");
+        imgFilme.setImageResource(R.drawable.noimg);
+        ratBarra.setRating(0);
+        posicao = filmes != null ? filmes.size() : 0;
     }
 
     private Filme montaCamposFilme(Filme filme) {
@@ -230,25 +232,26 @@ public class MainActivity extends AppCompatActivity {
         filme.setDataLancamento(edtDataLancamento.getText().toString());
         filme.setFilme(edtFilme.getText().toString());
         filme.setRating(ratBarra.getRating());
+        filme.setDiretor(diretores.get(spinnerDiretores.getSelectedItemPosition()));
         return filme;
     }
 
-    private boolean validaCampos(){
+    private boolean validaCampos() {
         String mensagem = "";
 
-        if (edtAno.getText().toString().isEmpty()){
+        if (edtAno.getText().toString().isEmpty()) {
             mensagem += "Ano, ";
         }
-        if (edtCodigo.getText().toString().isEmpty()){
+        if (edtCodigo.getText().toString().isEmpty()) {
             mensagem += "Codigo, ";
         }
-        if (edtDataLancamento.getText().toString().isEmpty()){
+        if (edtDataLancamento.getText().toString().isEmpty()) {
             mensagem += "Data de lançamento, ";
         }
-        if (edtFilme.getText().toString().isEmpty()){
+        if (edtFilme.getText().toString().isEmpty()) {
             mensagem += "Filme, ";
         }
-        if (spinnerDiretores.toString().isEmpty()){
+        if (spinnerDiretores.getSelectedItem() == null) {
             mensagem += "Diretor, ";
         }
         if (!mensagem.isEmpty()) {
@@ -265,16 +268,15 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == BUSCA_IMAGEM && resultCode == Activity.RESULT_OK) {
             if (data == null) {
                 return;
-            }
-            else{
-                if(data != null)
-                {
+            } else {
+                if (data != null) {
                     try {
 
                         InputStream stream = getContentResolver().openInputStream(
                                 data.getData());
                         bitmap = BitmapFactory.decodeStream(stream);
                         stream.close();
+                        bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
                         imgFilme.setImageBitmap(bitmap);
                         if (filmes.get(posicao) != null)
                             filmes.get(posicao).setBytes(returnByte(bitmap));
@@ -285,17 +287,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }else if ((requestCode == ACTIVITY_LISTA) && (resultCode == RESULT_OK)){
+        } else if ((requestCode == ACTIVITY_LISTA) && (resultCode == RESULT_OK)) {
             filmes = (ArrayList<Filme>) data.getExtras().getSerializable("lista");
         }
     }
+
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState)
-    {
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         if (bitmap != null) {
             byte[] byteArray = returnByte(bitmap);
-            savedInstanceState.putByteArray("imagem",byteArray);
+            savedInstanceState.putByteArray("imagem", byteArray);
+        }
+        if (filmes != null) {
+            savedInstanceState.putSerializable("filmes", filmes);
+        }
+        if (diretores != null) {
+            savedInstanceState.putSerializable("diretores", diretores);
         }
     }
 
@@ -310,10 +318,15 @@ public class MainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         byte[] byteArray = savedInstanceState.getByteArray("imagem");
+
         if (byteArray != null) {
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             imgFilme.setImageBitmap(bitmap);
         }
-
+        filmes = (ArrayList<Filme>) savedInstanceState.getSerializable("filmes");
+        diretores = (ArrayList<Diretor>) savedInstanceState.getSerializable("diretores");
+        if ((diretores != null) && (diretores.size() > 0)) {
+            populaDiretor();
+        }
     }
 }
