@@ -71,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener clique = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (filmes.size() > 0) {
-
+            if ((filmes != null)  &&(filmes.size() > 0)) {
                 if (v == fabBuscarImagem)
                     pickImage();
                 else if (v == fabAnterior) {

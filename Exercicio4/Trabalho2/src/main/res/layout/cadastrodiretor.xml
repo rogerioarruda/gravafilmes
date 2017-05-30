@@ -4,17 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/cadastroDiretor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cadastroDiretorTextNome" />
+    <TextView
+        android:id="@+id/cadastroDiretorTextDiretor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cadastroDiretorTextNome" />
 
     <EditText
         android:id="@+id/cadastroDiretorEditNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:inputType="textPersonName"
         android:text="" />
 

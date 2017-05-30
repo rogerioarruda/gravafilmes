@@ -5,6 +5,11 @@
     <string name="mainActivityTitulo">Titulo</string>
     <string name="mainActivityTextCodigo">Codigo</string>
     <string name="mainActivityTextAno">Ano</string>
+    <string name="mainActivityEditDataLancamento">Data de Lançamento</string>
+    <string name="mainActivityTextAvalie">Avalie!</string>
+    <string name="listaFilmesTextTitulo">Nome</string>
+    <string name="listaFilmesTextDiretor">Diretor</string>
+    <string name="btnSalvar">Salvar</string>
     <string-array name="diretores">
         <item>Quentin Tarantino</item>
         <item>Mel Gibson</item>
