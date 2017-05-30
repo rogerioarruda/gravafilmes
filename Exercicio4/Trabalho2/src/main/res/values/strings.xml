@@ -2,6 +2,9 @@
     <string name="app_name">Trabalho</string>
     <string name="mainActivityTextDiretor">Diretor</string>
     <string name="cadastroDiretorTextNome">Nome:</string>
+    <string name="mainActivityTitulo">Titulo</string>
+    <string name="mainActivityTextCodigo">Codigo</string>
+    <string name="mainActivityTextAno">Ano</string>
     <string-array name="diretores">
         <item>Quentin Tarantino</item>
         <item>Mel Gibson</item>

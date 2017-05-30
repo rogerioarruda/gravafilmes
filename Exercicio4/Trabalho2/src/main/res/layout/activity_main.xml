@@ -22,52 +22,52 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/noimg" />
 
-    <EditText
-        android:id="@+id/edtFilme"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Titulo"
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgFilme" />
+        <EditText
+            android:id="@+id/edtFilme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/mainActivityTitulo"
+            android:inputType="textPersonName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgFilme" />
 
-    <EditText
-        android:id="@+id/edtCodigo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Codigo"
-        android:inputType="text"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtFilme" />
+        <EditText
+            android:id="@+id/edtCodigo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/mainActivityTextCodigo"
+            android:inputType="text"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtFilme" />
 
-    <EditText
-        android:id="@+id/edtAno"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:ems="10"
-        android:hint="Ano"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintLeft_toLeftOf="@+id/edtCodigo"
-        app:layout_constraintRight_toLeftOf="@+id/edtDataLancamento"
-        app:layout_constraintTop_toBottomOf="@+id/edtCodigo"
-        app:layout_constraintVertical_bias="0.0" />
+        <EditText
+            android:id="@+id/edtAno"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:ems="10"
+            android:hint="@string/mainActivityTextAno"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="@+id/edtCodigo"
+            app:layout_constraintRight_toLeftOf="@+id/edtDataLancamento"
+            app:layout_constraintTop_toBottomOf="@+id/edtCodigo"
+            app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edtDataLancamento"
@@ -177,6 +177,7 @@
         android:text="@string/mainActivityTextDiretor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtAno" />
+
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>
