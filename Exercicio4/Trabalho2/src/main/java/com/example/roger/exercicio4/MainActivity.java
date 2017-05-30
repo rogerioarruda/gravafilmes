@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void montaCamposTela(){
-        if (posicao > 0) {
+        if (filmes.size() > 0) {
             filmes.get(posicao);
             if (filmes.get(posicao) != null) {
                 if (filmes.get(posicao).getAno() != null) {
