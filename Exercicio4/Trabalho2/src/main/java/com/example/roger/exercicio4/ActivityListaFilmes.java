@@ -26,11 +26,9 @@ public class ActivityListaFilmes extends AppCompatActivity {
 
         filmes = (ArrayList<Filme>) getIntent().getExtras().getSerializable("lista");
 
-        // utlizando o adaptador linear
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         lista.setLayoutManager(mLayoutManager);
 
-        // usando o adaptador
         final Adaptador adaptador = new Adaptador(filmes);
         lista.setAdapter(adaptador);
 

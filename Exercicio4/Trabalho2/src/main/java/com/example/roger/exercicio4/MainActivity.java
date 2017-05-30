@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private static Integer ACTIVITY_LISTA = 123;
     private static Integer BUSCA_IMAGEM = 234;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+
+
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }

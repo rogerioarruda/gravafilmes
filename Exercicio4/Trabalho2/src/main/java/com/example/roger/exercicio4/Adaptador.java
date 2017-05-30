@@ -35,7 +35,6 @@ public class Adaptador extends RecyclerView.Adapter<Item>{
                 notifyItemRemoved(position);
             }
         });
-
     }
 
     public ArrayList<Filme> getLista(){

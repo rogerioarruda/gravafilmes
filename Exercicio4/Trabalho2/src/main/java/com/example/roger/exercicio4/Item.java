@@ -17,7 +17,5 @@ public class Item extends RecyclerView.ViewHolder{
         this.texto = (TextView) itemView.findViewById(R.id.textNome);
         this.textoDiretor = (TextView) itemView.findViewById(R.id.textDiretor);
         this.imgExcluir = (ImageButton) itemView.findViewById(R.id.imgExcluir);
-
-
     }
 }

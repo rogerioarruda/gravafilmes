@@ -15,7 +15,6 @@ public class Filme implements Serializable {
     private Float rating;
     private byte[] bytes;
 
-
     public Filme(){
 
     }
